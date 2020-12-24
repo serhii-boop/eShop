@@ -1,0 +1,18 @@
+﻿@model IEnumerable<string>
+
+@Html.ActionLink("Додому", "List", "Wears", null, new { @class = "btn btn-outline-primary btn-lg btn-block m-3" })
+
+@foreach (var link in Model)
+{
+    @Html.RouteLink(link, new
+    {
+        controller = "Wears",
+        action = "List",
+        category = link,
+        page = 1
+    }, new
+    {
+        @class = "btn btn-lg btn-block m-3"
+            + (link == ViewBag.SelectedCategory ? "btn btn-primary btn-lg btn-block m-3" : "")
+    });;
+}

@@ -1,0 +1,17 @@
+﻿@using WebUI.Models
+@model WearsListViewModel
+
+@{
+    ViewBag.Title = "List";
+}
+<div class="container">
+
+    @foreach (var wear in Model.Wears)
+    {
+       @Html.Partial("_WearSummary", wear)
+    }
+
+    <div class="btn-group float-right m-3">
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x, category = Model.CurrentCategory }))
+    </div>
+</div>

@@ -1,0 +1,39 @@
+﻿@model Domain.Entities.Wear
+
+<div class="card bg-light row m-3">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-sm-9">
+                @if (Model.ImageData != null)
+                {
+                    <div class="pull-left" style="margin-right: 10px">
+                        <img class="img-thumbnail" width="75" height="75"
+                             src="@Url.Action("GetImage", "Wear",
+                new { Model.WearId })" />
+                    </div>
+                }
+                <h3>
+                    <strong>
+                        @Model.Name
+                    </strong>
+                </h3>
+            </div>
+            <div class="col-lg-3">
+                <h3 id="price" class="float-right col-form-label bg-primary">
+                        @Model.Price.ToString("# грн")
+                </h3>
+                @using (Html.BeginForm("AddToCart", "Cart"))
+                {
+                    <div class="float-right">
+                        @Html.HiddenFor(x => x.WearId)
+                        @Html.Hidden("returnUrl", Request.Url.PathAndQuery)
+                        <input type="submit" class="btn btn-success" value="Додати в корзину" />
+                    </div>
+                }
+            </div>
+        </div>
+        <span class="lead">
+            @Model.Description
+        </span>
+    </div>
+</div>

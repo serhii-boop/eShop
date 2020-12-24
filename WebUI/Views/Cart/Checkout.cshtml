@@ -1,0 +1,48 @@
+﻿@model Domain.Entities.ShippingDetails
+
+@{
+    ViewBag.Title = "WearStore: форма замовлення";
+}
+
+<h2>Оформити замовлення</h2>
+<p>Будь ласка, введіть Ваші контактні дані.</p>
+
+@using (Html.BeginForm())
+{
+    @Html.ValidationSummary();
+    <h3>Дані</h3>
+    <div class="form-group">
+        <label>Ваше ім'я:</label>
+        @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+
+        <label>Ваш номер телефону:</label>
+        @Html.TextBoxFor(x => x.Phone, new { @class = "form-control", placeholder = "+380(12)3456789" })
+    </div>
+
+    <h3>Адреса доставки</h3>
+    foreach (var property in ViewData.ModelMetadata.Properties)
+    {
+        if (property.PropertyName != "Name" && property.PropertyName != "GiftWrap" && property.PropertyName != "Phone")
+        {
+            <div class="form-group">
+                <label>
+                    @(property.DisplayName ?? property.PropertyName)
+                </label>
+                @Html.TextBox(property.PropertyName, null, new { @class = "form-control" })
+            </div>
+        }
+    }
+
+    <h3>Опції</h3>
+    <div class="form-group">
+        <label>
+            @Html.EditorFor(x => x.GiftWrap)
+            Використовувати подарункову упаковку?
+        </label>
+    </div>
+
+    <div class="text-center">
+        <input class="btn btn-primary m-3" type="submit" value="Обробити замовлення" />
+    </div>
+}
+
